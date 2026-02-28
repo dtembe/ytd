@@ -1,8 +1,9 @@
 @ECHO OFF
 SETLOCAL
 
-REM Set output directory
-SET OUTPUT_DIR=C:\Users\dtemb\Videos\OBS
+REM Load configuration
+CALL "%~dp0ytd_config.bat"
+SET "OUTPUT_DIR=%YTD_OUTPUT_DIR%"
 
 REM Check if OBS directory exists
 IF NOT EXIST "%OUTPUT_DIR%" (
@@ -50,7 +51,7 @@ IF %ERRORLEVEL% EQU 0 (
     ECHO ======================================================================================================================
     ECHO.
     ECHO Sanitizing filenames...
-    python "C:\tools\ytd\rename_downloaded_files.py" "%OUTPUT_DIR%"
+    python "%YTD_HOME%\rename_downloaded_files.py" "%OUTPUT_DIR%"
 
     ECHO.
     ECHO ✓ Download completed successfully!

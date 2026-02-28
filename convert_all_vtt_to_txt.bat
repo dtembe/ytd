@@ -1,7 +1,9 @@
 @ECHO OFF
 SETLOCAL
 
-SET OUTPUT_DIR=C:\Users\dtemb\Videos\OBS
+REM Load configuration
+CALL "%~dp0ytd_config.bat"
+SET "OUTPUT_DIR=%YTD_OUTPUT_DIR%"
 
 ECHO ======================================================================================================================
 ECHO.
@@ -34,7 +36,7 @@ ECHO.
 REM Convert each VTT file
 FOR %%F IN ("%OUTPUT_DIR%\*.vtt") DO (
     ECHO Converting: %%~nxF
-    python "C:\tools\ytd\vtt_to_txt.py" "%%F"
+    python "%YTD_HOME%\vtt_to_txt.py" "%%F"
 )
 
 ECHO.

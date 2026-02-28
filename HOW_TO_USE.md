@@ -1,7 +1,10 @@
 # YouTube Downloader Toolkit - How to Use
 
 ## Overview
-This is a comprehensive YouTube downloader optimized for LLM processing, speaker diarization, and transcript analysis. All downloads are saved to `C:\Users\dtemb\Videos\OBS`.
+A comprehensive YouTube downloader optimized for LLM processing, speaker diarization, and transcript analysis.
+
+All downloads are saved to your configured output directory (default: `C:\Users\<you>\Videos\OBS`).  
+Edit `ytd_config.bat` to change the output path.
 
 ## Quick Start
 
@@ -111,7 +114,7 @@ yt-dlp_Custom.bat
 ## File Locations
 
 ```
-C:\Users\dtemb\Videos\OBS\
+<output_dir>/
 ├── YYYYMMDD_Video_Title.mkv              # Video
 ├── YYYYMMDD_Video_Title.en.vtt           # Transcript (timestamps)
 ├── YYYYMMDD_Video_Title.en.txt           # Clean text (LLM)
@@ -125,7 +128,7 @@ C:\Users\dtemb\Videos\OBS\
 
 ### Common Errors:
 1. **"JavaScript runtime not found"** → Run `yt-dlp_Info.bat` to check Node.js
-2. **"Permission denied"** → Check write access to `C:\Users\dtemb\Videos\OBS`
+2. **"Permission denied"** → Check write access to your output directory
 3. **"No formats found"** → Video might be private/region-restricted
 
 ### System Check:
@@ -201,7 +204,7 @@ Use `yt-dlp_Advanced.bat` → Option 4 for MP3 extraction
 
 ## Remember
 
-- **All downloads go to**: `C:\Users\dtemb\Videos\OBS`
+- **All downloads go to**: your configured output directory (see `ytd_config.bat`)
 - **Best for LLM**: `.txt` files
 - **Speaker analysis**: Use options 5 or 6
 - **Update regularly**: `yt-dlp_Update.bat`
@@ -217,5 +220,5 @@ If you encounter issues:
 
 ---
 
-**Last Updated**: December 2024
-**Version**: Uses yt-dlp 2025.12.08 with Node.js runtime support
+**Last Updated**: February 2026
+**Version**: Uses yt-dlp with Node.js runtime support

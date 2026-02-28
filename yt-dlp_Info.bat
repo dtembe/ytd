@@ -31,7 +31,8 @@ ECHO ===========================================================================
 ECHO.
 ECHO Output directory check:
 ECHO.
-SET OUTPUT_DIR=C:\Users\dtemb\Videos\OBS
+CALL "%~dp0ytd_config.bat"
+SET "OUTPUT_DIR=%YTD_OUTPUT_DIR%"
 IF EXIST "%OUTPUT_DIR%" (
     ECHO ✓ OBS directory exists: %OUTPUT_DIR%
     dir "%OUTPUT_DIR%" /b /a-d 2>nul | find /c "." >nul

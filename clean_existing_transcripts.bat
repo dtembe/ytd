@@ -1,7 +1,9 @@
 @ECHO OFF
 SETLOCAL
 
-SET OUTPUT_DIR=C:\Users\dtemb\Videos\OBS
+REM Load configuration
+CALL "%~dp0ytd_config.bat"
+SET "OUTPUT_DIR=%YTD_OUTPUT_DIR%"
 
 ECHO ======================================================================================================================
 ECHO.
@@ -41,7 +43,7 @@ ECHO.
 REM Process each VTT file
 FOR %%F IN ("%OUTPUT_DIR%\*.vtt") DO (
     ECHO Processing: %%~nxF
-    python "C:\tools\ytd\create_clean_transcript.py" "%%F" --speaker
+    python "%YTD_HOME%\create_clean_transcript.py" "%%F" --speaker
     ECHO.
 )
 

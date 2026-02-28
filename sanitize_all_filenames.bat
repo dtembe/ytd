@@ -1,7 +1,9 @@
 @ECHO OFF
 SETLOCAL
 
-SET OUTPUT_DIR=C:\Users\dtemb\Videos\OBS
+REM Load configuration
+CALL "%~dp0ytd_config.bat"
+SET "OUTPUT_DIR=%YTD_OUTPUT_DIR%"
 
 ECHO ======================================================================================================================
 ECHO.
@@ -36,7 +38,7 @@ ECHO Found %count% file(s) to check
 ECHO.
 
 REM Run Python script to sanitize filenames
-python "C:\tools\ytd\rename_downloaded_files.py" "%OUTPUT_DIR%"
+python "%YTD_HOME%\rename_downloaded_files.py" "%OUTPUT_DIR%"
 
 ECHO.
 ECHO ======================================================================================================================

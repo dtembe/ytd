@@ -8,16 +8,24 @@ This is a **YouTube Downloader Toolkit (ytd)** - a Windows-based command-line ut
 
 ## Core Components
 
-### Executables
-- **yt-dlp.exe** - Main YouTube downloader (Python-based, latest version 2025.12.08)
-- **ffmpeg.exe** - Multimedia processing framework (v8.0.1 with extensive codec support)
+### Executables (not tracked in Git)
+- **yt-dlp.exe** - Main YouTube downloader (install via `winget install yt-dlp`)
+- **ffmpeg.exe** - Multimedia processing (install via `winget install ffmpeg`)
 
 ### Batch Scripts (User Interfaces)
-- **yt-dlp_Advanced.bat** - Interactive format selection with video/audio combination options
 - **yt-dlp_Basic.bat** - Simple one-command download with default settings
+- **yt-dlp_Advanced.bat** - Interactive format selection with video/audio combination options
 - **yt-dlp_Custom.bat** - Allows custom yt-dlp arguments for advanced users
+- **yt-dlp_Transcript.bat** - Transcript-focused downloads (text only, video+subs, audio+subs)
+- **yt-dlp_LLM_Workflow.bat** - 6-mode AI processing pipeline
+- **yt-dlp_Speaker_Diarization.bat** - Speaker separation workflows
 - **yt-dlp_Info.bat** - Displays yt-dlp version and build information
 - **yt-dlp_Update.bat** - Updates yt-dlp to the latest version
+
+### Configuration
+- **ytd_config.bat** - Centralized configuration (output directory, paths)
+
+All scripts source `ytd_config.bat` for paths. Edit it or set environment variable `YTD_OUTPUT_DIR` to change the output directory.
 
 ## Common Development Commands
 
@@ -73,20 +81,23 @@ yt-dlp_Info.bat
 ### Directory Structure
 ```
 C:\tools\ytd\
-├── yt-dlp.exe               # Main downloader executable
-├── ffmpeg.exe               # Multimedia processing
-├── ffmpeg-8.0.1-essentials_build/  # FFmpeg full build
-├── zips/                    # Archive storage
-├── .claude/                 # Claude Code settings
-├── yt-dlp_Basic.bat         # Simple download with transcripts
-├── yt-dlp_Advanced.bat      # Format selection and options
-├── yt-dlp_Custom.bat        # Custom arguments with smart defaults
-├── yt-dlp_Transcript.bat    # Transcript-focused downloader
-├── yt-dlp_Info.bat          # System information checker
-└── yt-dlp_Update.bat        # Updater
+├── ytd_config.bat            # Centralized configuration
+├── yt-dlp_Basic.bat          # Simple download with transcripts
+├── yt-dlp_Advanced.bat       # Format selection and options
+├── yt-dlp_Custom.bat         # Custom arguments with smart defaults
+├── yt-dlp_Transcript.bat     # Transcript-focused downloader
+├── yt-dlp_LLM_Workflow.bat   # LLM processing pipeline
+├── yt-dlp_Speaker_Diarization.bat  # Speaker separation
+├── yt-dlp_Info.bat           # System information checker
+├── yt-dlp_Update.bat         # Updater
+├── vtt_to_txt.py             # VTT → clean text converter
+├── create_clean_transcript.py  # Speaker-labeled transcript creator
+├── speaker_diarization.py    # Full speaker analysis
+├── rename_downloaded_files.py # Batch filename sanitizer
+└── sanitize_filename.py      # Single filename sanitizer
 
-Output Directory:
-C:\Users\dtemb\Videos\OBS     # Default download location (with existing transcripts)
+Output Directory (configurable via ytd_config.bat):
+Default: C:\Users\<username>\Videos\OBS
 ```
 
 ### Workflow Pattern
@@ -132,7 +143,7 @@ C:\Users\dtemb\Videos\OBS     # Default download location (with existing transcr
 ## Configuration
 
 ### Default Settings
-- Output directory: `C:\Users\dtemb\Videos\OBS`
+- Output directory: Configured in `ytd_config.bat` (default: `C:\Users\<username>\Videos\OBS`)
 - Filename format: `%(upload_date)s_%(title)s.%(ext)s` (date prefix for organization)
 - JavaScript runtime: Node.js (auto-detected)
 - Subtitles: Downloaded by default (English + auto-generated, converted to SRT)

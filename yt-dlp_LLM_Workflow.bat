@@ -1,8 +1,9 @@
 @ECHO OFF
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-REM Set output directory
-SET OUTPUT_DIR=C:\Users\dtemb\Videos\OBS
+REM Load configuration
+CALL "%~dp0ytd_config.bat"
+SET "OUTPUT_DIR=%YTD_OUTPUT_DIR%"
 
 REM Check if OBS directory exists
 IF NOT EXIST "%OUTPUT_DIR%" (
@@ -223,7 +224,7 @@ yt-dlp --js-runtimes node ^
 IF %ERRORLEVEL% EQU 0 (
     ECHO.
     ECHO Sanitizing filenames...
-    python "C:\tools\ytd\rename_downloaded_files.py" "%OUTPUT_DIR%"
+    python "%YTD_HOME%\rename_downloaded_files.py" "%OUTPUT_DIR%"
 
     ECHO.
     ECHO ✓ Files downloaded for speaker diarization!
@@ -234,7 +235,7 @@ IF %ERRORLEVEL% EQU 0 (
     REM Find the VTT file and run speaker diarization
     FOR %%F IN ("%OUTPUT_DIR%\*.vtt") DO (
         ECHO Processing VTT: %%F
-        python "C:\tools\ytd\create_clean_transcript.py" "%%F" --speaker
+        python "%YTD_HOME%\create_clean_transcript.py" "%%F" --speaker
         goto speakerDone
     )
 
@@ -280,7 +281,7 @@ ECHO.
 ECHO Converting VTT to clean transcript for LLM...
 FOR %%F IN ("%OUTPUT_DIR%\*.vtt") DO (
     ECHO Converting: %%F
-    python "C:\tools\ytd\create_clean_transcript.py" "%%F" --speaker
+    python "%YTD_HOME%\create_clean_transcript.py" "%%F" --speaker
     goto conversionDone
 )
 
@@ -293,12 +294,12 @@ IF %ERRORLEVEL% EQU 0 (
     REM Sanitize filenames first
     ECHO.
     ECHO Sanitizing filenames...
-    python "C:\tools\ytd\rename_downloaded_files.py" "%OUTPUT_DIR%"
+    python "%YTD_HOME%\rename_downloaded_files.py" "%OUTPUT_DIR%"
 
     REM Run speaker diarization
     FOR %%F IN ("%OUTPUT_DIR%\*.vtt") DO (
         ECHO Running speaker analysis on: %%F
-        python "C:\tools\ytd\create_clean_transcript.py" "%%F" --speaker
+        python "%YTD_HOME%\create_clean_transcript.py" "%%F" --speaker
         goto analysisDone
     )
 

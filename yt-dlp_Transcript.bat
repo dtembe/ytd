@@ -1,8 +1,9 @@
 @ECHO OFF
 SETLOCAL
 
-REM Set output directory
-SET OUTPUT_DIR=C:\Users\dtemb\Videos\OBS
+REM Load configuration
+CALL "%~dp0ytd_config.bat"
+SET "OUTPUT_DIR=%YTD_OUTPUT_DIR%"
 
 REM Check if OBS directory exists
 IF NOT EXIST "%OUTPUT_DIR%" (

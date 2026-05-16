@@ -56,7 +56,7 @@ ECHO.
 ECHO ======================================================================================================================
 ECHO.
 ECHO Fetching available subtitle languages...
-yt-dlp --js-runtimes node --list-subs "%URL%"
+yt-dlp %YTD_JS_FLAGS% --list-subs "%URL%"
 ECHO.
 ECHO ======================================================================================================================
 goto transcriptOnly
@@ -66,7 +66,7 @@ ECHO.
 ECHO Downloading clean TXT transcript only (optimized for LLM)...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        --skip-download ^
        --write-sub ^
        --write-auto-sub ^
@@ -80,7 +80,7 @@ ECHO.
 ECHO Downloading all transcript formats (TXT, VTT, SRT)...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        --skip-download ^
        --write-sub ^
        --write-auto-sub ^
@@ -105,7 +105,7 @@ ECHO.
 ECHO ======================================================================================================================
 ECHO.
 ECHO Downloading MKV video with all transcript formats (TXT, VTT, SRT)...
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "best" ^
        --write-sub ^
@@ -122,13 +122,13 @@ goto finish
 :videoSelect
 ECHO.
 ECHO Fetching available formats...
-yt-dlp --js-runtimes node -F "%URL%"
+yt-dlp %YTD_JS_FLAGS% -F "%URL%"
 ECHO.
 SET /P format="Select format code: "
 ECHO ======================================================================================================================
 ECHO.
 ECHO Downloading format %format% (MKV) with all transcript formats...
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "%format%" ^
        --write-sub ^
@@ -159,7 +159,7 @@ ECHO.
 ECHO ======================================================================================================================
 ECHO.
 ECHO Downloading best audio as MP3 with all transcript formats...
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "ba/bestaudio" ^
        --extract-audio ^
@@ -179,7 +179,7 @@ ECHO.
 ECHO ======================================================================================================================
 ECHO.
 ECHO Downloading best audio with transcripts...
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "ba/bestaudio" ^
        --write-sub ^
@@ -194,13 +194,13 @@ goto finish
 :audioSelect
 ECHO.
 ECHO Fetching available audio formats...
-yt-dlp --js-runtimes node -F "%URL%" | findstr "audio only"
+yt-dlp %YTD_JS_FLAGS% -F "%URL%" | findstr "audio only"
 ECHO.
 SET /P format="Select audio format code: "
 ECHO ======================================================================================================================
 ECHO.
 ECHO Downloading audio format %format% with transcripts...
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "%format%" ^
        --write-sub ^

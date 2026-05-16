@@ -56,20 +56,23 @@ yt-dlp_Info.bat
 ### Direct yt-dlp Usage (PowerShell/Bash)
 ```bash
 # List available formats
-./yt-dlp.exe --js-runtimes node -F "VIDEO_URL"
+./yt-dlp.exe --js-runtimes deno,node -F "VIDEO_URL"
 
 # Download with specific format and transcripts
-./yt-dlp.exe --js-runtimes node -o "C:/Users/dtemb/Videos/OBS/%(upload_date)s_%(title)s.%(ext)s" \
+./yt-dlp.exe --js-runtimes deno,node --extractor-args "youtube:player_client=mweb,web_safari" \
+  -o "C:/Users/dtemb/Videos/OBS/%(upload_date)s_%(title)s.%(ext)s" \
   -f "FORMAT_CODE" --write-sub --write-auto-sub --sub-langs en,en-US \
   --convert-subs srt --embed-metadata "VIDEO_URL"
 
 # Download video + audio combination with transcripts
-./yt-dlp.exe --js-runtimes node -o "C:/Users/dtemb/Videos/OBS/%(upload_date)s_%(title)s.%(ext)s" \
+./yt-dlp.exe --js-runtimes deno,node --extractor-args "youtube:player_client=mweb,web_safari" \
+  -o "C:/Users/dtemb/Videos/OBS/%(upload_date)s_%(title)s.%(ext)s" \
   -f "VIDEO_FORMAT+AUDIO_FORMAT" --write-sub --write-auto-sub \
   --sub-langs en,en-US --convert-subs srt --embed-metadata "VIDEO_URL"
 
 # Download only transcripts
-./yt-dlp.exe --js-runtimes node --skip-download --write-sub --write-auto-sub \
+./yt-dlp.exe --js-runtimes deno,node --extractor-args "youtube:player_client=mweb,web_safari" \
+  --skip-download --write-sub --write-auto-sub \
   --sub-langs all --convert-subs srt "VIDEO_URL"
 
 # Update yt-dlp
@@ -107,7 +110,8 @@ Default: C:\Users\<username>\Videos\OBS
 4. **Storage Layer** - Downloads directory with organized file naming
 
 ### Key Design Principles
-- **JavaScript Runtime Enabled** - Uses Node.js for full YouTube feature support
+- **JavaScript Runtime Enabled** - Uses Deno (primary) + Node.js (fallback) for full YouTube feature support
+- **SABR Resilience** - Configurable player client fallback (`mweb,web_safari`) to work around YouTube SABR enforcement
 - **Simplicity First** - No installation required, unpack and run
 - **User-Friendly** - Batch scripts abstract complex yt-dlp commands
 - **Powerful Backend** - Full yt-dlp and FFmpeg feature support available
@@ -130,7 +134,7 @@ Default: C:\Users\<username>\Videos\OBS
 - Automatic format merging for best quality
 
 ### Advanced Features
-- **JavaScript Runtime**: Full Node.js support for YouTube extraction
+- **JavaScript Runtime**: Deno (recommended) + Node.js fallback for YouTube extraction
 - **Transcript Downloads**: Automatic and manual subtitles in multiple languages
 - **Format Selection**: Interactive format picker (Advanced.bat)
 - **Metadata Embedding**: Video info, chapters, thumbnails embedded in files
@@ -145,7 +149,8 @@ Default: C:\Users\<username>\Videos\OBS
 ### Default Settings
 - Output directory: Configured in `ytd_config.bat` (default: `C:\Users\<username>\Videos\OBS`)
 - Filename format: `%(upload_date)s_%(title)s.%(ext)s` (date prefix for organization)
-- JavaScript runtime: Node.js (auto-detected)
+- JavaScript runtime: Deno + Node.js (configured via `YTD_JS_FLAGS` in `ytd_config.bat`)
+- Player clients: mweb, web_safari (configured via `YTD_PLAYER_CLIENTS` in `ytd_config.bat`)
 - Subtitles: Downloaded by default (English + auto-generated, converted to SRT)
 - Metadata: Embedded (video info, chapters, thumbnails)
 - FFmpeg: Multi-threaded processing enabled
@@ -160,7 +165,7 @@ Default: C:\Users\<username>\Videos\OBS
 ## Security Notes
 
 - Downloads are saved to local OBS directory only
-- JavaScript runtime (Node.js) required for full YouTube support
+- JavaScript runtime (Deno + Node.js) required for full YouTube support
 - No network services or external dependencies beyond yt-dlp
 - FFmpeg includes extensive codec support for security scanning
 - All tools run with user privileges only
@@ -168,12 +173,13 @@ Default: C:\Users\<username>\Videos\OBS
 ## Troubleshooting
 
 ### Common Issues
-1. **JavaScript Runtime Warning** - Ensure Node.js is installed (run `yt-dlp_Info.bat` to check)
+1. **JavaScript Runtime Warning** - Ensure Deno or Node.js is installed (run `yt-dlp_Info.bat` to check)
 2. **"URL not supported"** - yt-dlp may need update: run `yt-dlp_Update.bat`
 3. **Format selection errors** - Use `yt-dlp_Advanced.bat` to see available formats first
 4. **Permission denied** - Ensure write access to `C:\Users\dtemb\Videos\OBS`
 5. **FFmpeg errors** - Check that ffmpeg.exe is in the root directory
 6. **Missing transcripts** - Video may not have subtitles; try `yt-dlp_Transcript.bat` option 4 to list available languages
+7. **"web only has SABR formats"** - YouTube is forcing SABR streaming; scripts use `mweb,web_safari` fallback clients automatically
 
 ### Debug Mode
 Add `-v` or `--verbose` to yt-dlp commands for detailed logging
@@ -181,7 +187,7 @@ Add `-v` or `--verbose` to yt-dlp commands for detailed logging
 ### System Check
 Run `yt-dlp_Info.bat` to verify:
 - yt-dlp version
-- Node.js availability
+- Deno and Node.js availability
 - FFmpeg installation
 - OBS directory access
 
@@ -193,6 +199,6 @@ yt-dlp [options] "URL" > download.log 2>&1
 
 ### JavaScript Runtime Issues
 If JavaScript runtime errors persist:
-1. Install/Update Node.js: https://nodejs.org/
-2. Or use Deno: `--js-runtimes deno` (yt-dlp will auto-download)
+1. Install Deno: `winget install DenoLand.Deno`
+2. Or use Node.js: https://nodejs.org/ (v20+)
 3. Check with `yt-dlp_Info.bat` for runtime status

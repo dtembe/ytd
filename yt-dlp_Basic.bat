@@ -32,7 +32,7 @@ ECHO ===========================================================================
 ECHO.
 ECHO Starting download with JavaScript runtime...
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        --write-sub ^
        --write-auto-sub ^

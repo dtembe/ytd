@@ -34,7 +34,7 @@ goto formatList
 :formatList
 ECHO.
 ECHO Fetching available formats (this may take a moment)...
-yt-dlp --js-runtimes node -F "%URL%"
+yt-dlp %YTD_JS_FLAGS% -F "%URL%"
 ECHO.
 ECHO ======================================================================================================================
 goto selection
@@ -84,7 +84,7 @@ ECHO Downloading best video + best audio with transcripts...
 ECHO.
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "bv+ba/best" ^
        %SUB_ARGS% ^
@@ -103,7 +103,7 @@ ECHO Downloading best audio only with transcripts...
 ECHO.
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "ba/bestaudio" ^
        --extract-audio ^
@@ -132,14 +132,14 @@ SET /P audio="Select audio format code: "
 REM Build transcript arguments
 SET SUB_ARGS=
 if "%transcriptOpt%"=="1" (
-    SET SUB_ARGS=--write-sub --write-auto-sub --sub-langs en,en-US --convert-srs srt
+    SET SUB_ARGS=--write-sub --write-auto-sub --sub-langs en,en-US --convert-subs srt
 )
 
 ECHO.
 ECHO ======================================================================================================================
 ECHO.
 ECHO Downloading video format %video% + audio format %audio%...
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "%video%+%audio%" ^
        %SUB_ARGS% ^
@@ -170,7 +170,7 @@ ECHO.
 ECHO ======================================================================================================================
 ECHO.
 ECHO Downloading single format %format%...
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "%format%" ^
        %SUB_ARGS% ^

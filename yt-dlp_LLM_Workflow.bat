@@ -58,7 +58,7 @@ ECHO.
 ECHO Downloading for LLM processing...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "bv+ba/best" ^
        --write-sub ^
@@ -92,7 +92,7 @@ ECHO.
 ECHO Downloading and creating summary template...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "bv+ba/best" ^
        --write-sub ^
@@ -111,7 +111,7 @@ IF %ERRORLEVEL% EQU 0 (
     ECHO Creating LLM summary template...
 
     REM Extract title for summary file
-    FOR /F "tokens=*" %%i IN ('yt-dlp --js-runtimes node --get-title "%URL%" 2^>nul') DO (
+    FOR /F "tokens=*" %%i IN ('yt-dlp %YTD_JS_FLAGS% --get-title "%URL%" 2^>nul') DO (
         SET VIDEO_TITLE=%%i
     )
 
@@ -141,7 +141,7 @@ ECHO.
 ECHO Research mode: Getting comprehensive transcript and metadata...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        --skip-download ^
        --write-sub ^
        --write-auto-sub ^
@@ -171,7 +171,7 @@ ECHO.
 ECHO Lecture/Academic mode: Downloading with chapters and timestamps...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "bv+ba/best" ^
        --write-sub ^
@@ -207,7 +207,7 @@ ECHO.
 ECHO Speaker diarization mode: Downloading with VTT for speaker analysis...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "bv+ba/best" ^
        --write-sub ^
@@ -259,7 +259,7 @@ ECHO Full analysis mode: Everything you need for complete understanding...
 ECHO ======================================================================================================================
 ECHO.
 REM First download with VTT
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "bv+ba/best" ^
        --write-sub ^

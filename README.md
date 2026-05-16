@@ -18,7 +18,8 @@ Built on [yt-dlp](https://github.com/yt-dlp/yt-dlp) and [FFmpeg](https://ffmpeg.
 |------|----------|---------|
 | **yt-dlp** | Yes | `winget install yt-dlp` or [download](https://github.com/yt-dlp/yt-dlp/releases) |
 | **FFmpeg** | Yes | `winget install ffmpeg` or [download](https://ffmpeg.org/download.html) |
-| **Node.js** | Yes | `winget install OpenJS.NodeJS` or [download](https://nodejs.org/) |
+| **Deno** | Recommended | `winget install DenoLand.Deno` or [download](https://deno.land/) |
+| **Node.js** | Fallback | `winget install OpenJS.NodeJS` or [download](https://nodejs.org/) |
 | **Python 3** | Yes | `winget install Python.Python.3` or [download](https://python.org/) |
 
 > Place `yt-dlp.exe` and `ffmpeg.exe` in the ytd directory, or ensure they're on your system PATH.
@@ -47,7 +48,7 @@ Downloads video + creates clean `.txt`, speaker-labeled `_clean.txt`, and metada
 ```
 yt-dlp_Info.bat
 ```
-Verifies yt-dlp, FFmpeg, Node.js, and output directory.
+Verifies yt-dlp, FFmpeg, Deno, Node.js, and output directory.
 
 ## Scripts Reference
 
@@ -135,8 +136,8 @@ yt-dlp_Advanced.bat → Option 4 (audio best quality, MP3)
 
 | Problem | Solution |
 |---------|----------|
-| "JavaScript runtime not found" | Install Node.js, then run `yt-dlp_Info.bat` to verify |
-| Download fails | Run `yt-dlp_Update.bat` — YouTube changes frequently |
+| "JavaScript runtime not found" | Install Deno (`winget install DenoLand.Deno`) or Node.js, then run `yt-dlp_Info.bat` |
+| Download fails or low quality | Run `yt-dlp_Update.bat` — YouTube changes frequently. Scripts use fallback clients for SABR resilience |
 | "Permission denied" | Check write access to your output directory |
 | No subtitles found | Video may not have captions — try `yt-dlp_Transcript.bat` → Option 5 to list languages |
 | FFmpeg errors | Ensure `ffmpeg.exe` is in the ytd directory or on PATH |

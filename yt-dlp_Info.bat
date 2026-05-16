@@ -13,7 +13,7 @@ ECHO ===========================================================================
 ECHO.
 ECHO Checking Python/JavaScript runtime status...
 ECHO.
-yt-dlp --js-runtimes node --list-extractors | find "youtube"
+yt-dlp %YTD_JS_FLAGS% --list-extractors | find "youtube"
 ECHO.
 ECHO ======================================================================================================================
 ECHO.
@@ -26,6 +26,10 @@ ECHO.
 ECHO Checking Node.js runtime...
 ECHO.
 node --version 2>nul && ECHO ✓ Node.js is available for yt-dlp JavaScript processing || ECHO ✗ Node.js not found - JavaScript features may be limited
+ECHO.
+ECHO Checking Deno runtime...
+ECHO.
+deno --version 2>nul | findstr "deno" && ECHO ✓ Deno is available (recommended runtime) || ECHO ✗ Deno not found - install via: winget install DenoLand.Deno
 ECHO.
 ECHO ======================================================================================================================
 ECHO.

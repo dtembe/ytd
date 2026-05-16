@@ -56,7 +56,7 @@ ECHO.
 ECHO Downloading video and high-quality audio for diarization...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "best" ^
        --write-sub ^
@@ -93,7 +93,7 @@ ECHO.
 ECHO Downloading with enhanced transcript analysis...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "best" ^
        --write-sub ^
@@ -130,7 +130,7 @@ ECHO.
 ECHO Research mode: All transcript formats for analysis...
 ECHO ======================================================================================================================
 ECHO.
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "best" ^
        --write-sub ^
@@ -167,7 +167,7 @@ ECHO Full Whisper diarization workflow...
 ECHO ======================================================================================================================
 ECHO.
 ECHO Step 1: Extracting audio for Whisper processing...
-yt-dlp --js-runtimes node ^
+yt-dlp %YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" ^
        -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" ^
        -f "best" ^
        --write-sub ^

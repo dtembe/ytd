@@ -127,7 +127,7 @@ yt-dlp_Custom.bat
 ## Troubleshooting
 
 ### Common Errors:
-1. **"JavaScript runtime not found"** → Run `yt-dlp_Info.bat` to check Node.js
+1. **"JavaScript runtime not found"** → Run `yt-dlp_Info.bat` to check Deno/Node.js
 2. **"Permission denied"** → Check write access to your output directory
 3. **"No formats found"** → Video might be private/region-restricted
 
@@ -137,7 +137,7 @@ yt-dlp_Info.bat
 ```
 This will show:
 - yt-dlp version
-- Node.js status
+- Deno and Node.js status
 - FFmpeg availability
 - Directory permissions
 
@@ -215,10 +215,10 @@ Use `yt-dlp_Advanced.bat` → Option 4 for MP3 extraction
 If you encounter issues:
 1. Check `yt-dlp_Info.bat` first
 2. Update yt-dlp: `yt-dlp_Update.bat`
-3. Ensure Node.js is installed for YouTube features
+3. Ensure Deno or Node.js is installed for YouTube features
 4. Verify OBS directory exists and is writable
 
 ---
 
-**Last Updated**: February 2026
-**Version**: Uses yt-dlp with Node.js runtime support
+**Last Updated**: May 2026
+**Version**: Uses yt-dlp with Deno + Node.js runtime support

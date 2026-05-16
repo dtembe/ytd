@@ -29,7 +29,8 @@ IF "%URL%"=="" (
 
 ECHO.
 ECHO Default arguments will be used unless you specify custom ones:
-ECHO --js-runtimes node (JavaScript runtime)
+ECHO %YTD_JS_FLAGS% (JavaScript runtimes)
+ECHO --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" (SABR fallback)
 ECHO -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s" (output path)
 ECHO --write-sub --write-auto-sub --sub-langs en,en-US (transcripts)
 ECHO --convert-subs vtt (timestamps, convertible to TXT)
@@ -44,7 +45,7 @@ ECHO.
 ECHO Starting download...
 
 REM Build the command with defaults
-SET BASE_ARGS=--js-runtimes node -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s"
+SET BASE_ARGS=%YTD_JS_FLAGS% --extractor-args "youtube:player_client=%YTD_PLAYER_CLIENTS%" -o "%OUTPUT_DIR%\%%(upload_date)s_%%(title)s.%%(ext)s"
 
 REM Add default arguments if none provided
 IF "%arguments%"=="" (
